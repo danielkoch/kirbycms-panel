@@ -92,7 +92,13 @@ var panel = {
       return false;
       
     });
-        
+
+      $('.group-headline').click(function() {
+          var $el = $(this);
+          $el.toggleClass('is-open');
+          $el.next('section').toggleClass('is-closed');
+      });
+
   }, 
   
   overlay : {

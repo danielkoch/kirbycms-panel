@@ -201,21 +201,38 @@ class form {
     
       
   }
-      
+
   function load() {
 
-    if(empty($this->fields)) return false;
-            
-    $output[] = '<fieldset>';
-            
-    foreach($this->fields AS $field) {
-      $output[] = $this->field($field);
-    }
-    
-    $output[] = '</fieldset>';
+  if(empty($this->fields)) return false;
 
-    return implode("\n", $output);
-        
+  foreach($this->fields AS $field) {
+    if (isset($field["group"])){
+     $pre_output[$field["group"]]["label"] = $field["group"];
+      $pre_output[$field["group"]]["fields"][] = $this->field($field);
+     } else {
+       $pre_output[] = $this->field($field);
+    }
+  }
+
+  $output[] = '<fieldset>';
+  foreach ($pre_output as $po){
+  if (is_array($po)){
+    //print_r($po);
+    $output[] = '<h3 class="group-headline">' . ucfirst ( $po["label"] ) .'</h3>';
+    $output[] = ' <section class="group is-closed" id="' . $po["label"] . '">';
+    foreach($po["fields"] as $o){
+      $output[] = $o;
+    }
+    $output[] = '</section>';
+    } else {
+      $output[] = '<section class="single">'.$po.'</section>';
+    }
+  }
+  $output[] = '</fieldset>';
+
+  return implode("\n", $output);
+
   }
 
   function css() {

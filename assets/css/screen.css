@@ -852,6 +852,18 @@ body:before {
   background: red;
 }
 
+/* Panel group style */
+.group.is-closed {
+    display: none;
+}
+.group-headline {
+    cursor: pointer;
+    background: #222;
+    color: #fff;
+    margin-bottom: 20px;
+    margin-right: -20px;
+    padding: 5px 10px;
+}
 
 /* overlay forms */
 .overlay {
