@@ -23,21 +23,21 @@ class form {
     if($panel->show == 'info') {
       
       $this->data = data::siteData();
-      $fields = array();  
-                  
+      $fields = array();
+
       foreach($this->data as $key => $value) {
         $fields[$key] = array(
           'label' => str::ucfirst($key),
           'type'  => ($key == 'description') ? 'textarea' : 'text',
         ); 
-      }      
+      }
       
     } else {
       $this->data = $page->_;
     }
         
-    $this->prepare($fields);      
-        
+    $this->prepare($fields);
+
   }
   
   function prepare($fields) {
@@ -62,8 +62,8 @@ class form {
       // config file
       $config = $root . '/' . $type . '.config.php';
       
-      $field['root']   = $root;      
-      $field['file']   = $file;      
+      $field['root']   = $root;
+      $field['file']   = $file;
       $field['name']   = $name;
       $field['config'] = (file_exists($config)) ? $config : false;
 
@@ -84,7 +84,7 @@ class form {
         $this->validate[$name] = $field;
       }
       
-      // add the field to the global fields array    
+      // add the field to the global fields array
       $this->fields[$name] = $field;
     
     }
@@ -120,7 +120,7 @@ class form {
     
     // include the field config file, which makes 
     // it possible to overwrite the default options
-    if($options['config']) require($options['config']);    
+    if($options['config']) require($options['config']);
 
     $output = array();
     $output[] = '<div class="field ' . $this->fieldcss($options) . '">';
@@ -132,8 +132,8 @@ class form {
     if($options['type'] == 'textarea' && $options['buttons'] == true) {
       $output[] = self::buttons($options['buttons']);
     }
-    
-    // load the field template    
+
+    // load the field template
     $output[] = $this->fieldtemplate($options);
 
     // add the help text if available
@@ -141,7 +141,7 @@ class form {
 
     $output[] = '</div>';
     
-    return implode("\n", $output);    
+    return implode("\n", $output);
       
   }
   
@@ -149,7 +149,7 @@ class form {
     content::start();
     extract($params);
     require($file);
-    return content::end(true);      
+    return content::end(true);
   }
   
   function fieldcss($options) {
@@ -194,7 +194,7 @@ class form {
       if(empty($text)) $text = $default;
       
       return $text;
-                              
+
     } else {
       return $array;
     }
@@ -227,7 +227,7 @@ class form {
     $output[] = '</style>';
 
     return implode("\n", $output);
-            
+
   }
   
   function js() {
@@ -239,7 +239,7 @@ class form {
     $output[] = '</script>';
 
     return implode("\n", $output);
-            
+
   }
   
   function buttons($active) {
@@ -264,16 +264,16 @@ class form {
     } else {
       $buttons = $available;
     }
-                
+
     $html[] = '<div class="form-buttons">';
-    $html[] = '<ul>';    
+    $html[] = '<ul>';
     
     foreach($buttons as $button) {
-      $html[] = '<li>' . $button . '</li>';    
+      $html[] = '<li>' . $button . '</li>';
     }
 
-    $html[] = '</ul>';    
-    $html[] = '</div>';    
+    $html[] = '</ul>';
+    $html[] = '</div>';
     
     return implode("\n", $html);
     
@@ -312,16 +312,16 @@ class fileform extends form {
       
     }
 
-    $this->prepare($fields);      
-        
+    $this->prepare($fields);
+
   }
   
   function load() {
 
     if(empty($this->fields)) return false;
-            
+
     $output[] = '<fieldset class="customfields">';
-            
+
     foreach($this->fields AS $field) {
       $output[] = $this->field($field);
     }
@@ -329,7 +329,7 @@ class fileform extends form {
     $output[] = '</fieldset>';
 
     return implode("\n", $output);
-        
+
   }
 
 }
